@@ -1,0 +1,19 @@
+{
+  "name": "pawel-szpakiewicz-cv",
+  "version": "1.0.0",
+  "description": "Interactive CV - Paweł Szpakiewicz",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["cv", "resume", "interactive", "ai-generalist"],
+  "author": "Paweł Szpakiewicz",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

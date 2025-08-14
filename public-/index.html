@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Paweł Szpakiewicz - Project Manager, Innovation Consultant, AI Generalist. Interaktywne CV z 7-letnim doświadczeniem w zarządzaniu projektami.">
+    <meta name="keywords" content="project manager, innovation consultant, AI generalist, zarządzanie projektami, Wrocław">
+    <meta name="author" content="Paweł Szpakiewicz">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Paweł Szpakiewicz - Interactive CV">
+    <meta property="og:description" content="Project Manager | Innovation Consultant | AI Generalist - Interaktywne CV">
+    <meta property="og:url" content="https://your-domain.railway.app">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Paweł Szpakiewicz - Interactive CV">
+    <meta property="twitter:description" content="Project Manager | Innovation Consultant | AI Generalist">
+    
+    <title>Paweł Szpakiewicz - Interactive CV</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cv-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .header {
+            background: #3A3A3C;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>') repeat;
+            opacity: 0.1;
+        }
+
+        .profile-section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .name {
+            font-size: 3em;
+            font-weight: 300;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .title {
+            font-size: 1.4em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+        }
+
+        .sidebar {
+            background: #fafafa;
+            padding: 40px 30px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #3A3A3C;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FFCB08;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .clickable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .clickable:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .expandable {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #FFCB08;
+        }
+
+        .expandable:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .expandable-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .expandable.active .expandable-content {
+            max-height: 500px;
+        }
+
+        .expandable::after {
+            content: "▼";
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            transition: transform 0.3s ease;
+            color: #FFCB08;
+        }
+
+        .expandable.active::after {
+            transform: rotate(180deg);
+        }
+
+        .skill-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #FFCB08;
+        }
+
+        .skill-item:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .experience-item {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #FFCB08;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .company {
+            font-weight: bold;
+            color: #3A3A3C;
+            font-size: 1.2em;
+        }
+
+        .position {
+            color: #FFCB08;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .period {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .achievements {
+            margin-top: 15px;
+        }
+
+        .achievement {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 3px solid #FFCB08;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalShow 0.3s ease;
+        }
+
+        @keyframes modalShow {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+
+        .close:hover {
+            color: #FFCB08;
+        }
+
+        .ai-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .ai-tool {
+            background: linear-gradient(135deg, #FFCB08 0%, #e6b007 100%);
+            color: #3A3A3C;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .ai-tool:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 203, 8, 0.4);
+        }
+
+        .feedback-snippet {
+            background: #f8f9e6;
+            border-left: 4px solid #FFCB08;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-style: italic;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-snippet:hover {
+            background: #f5f7e6;
+            transform: translateX(5px);
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px solid #FFCB08;
+        }
+
+        .summary h3 {
+            color: #3A3A3C;
+            margin-bottom: 15px;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 14px;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .name {
+                font-size: 2em;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #FFCB08 0%, #fff2a8 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #3A3A3C;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .profile-photo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #FFCB08;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 203, 8, 0.3);
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cv-card">
+            <!-- Header -->
+            <div class="header">
+                <div class="profile-section">
+                    <h1 class="name">Paweł Szpakiewicz</h1>
+                    <h2 class="title">Project Manager | Innovation Consultant | <span class="highlight">AI Generalist</span></h2>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span>📧</span> szpakiewicz.p@gmail.com
+                        </div>
+                        <div class="contact-item">
+                            <span>📱</span> 600 788 333
+                        </div>
+                        <div class="contact-item">
+                            <span>🎂</span> 29.07.1996
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Profile Photo Section -->
+                    <div class="profile-photo-section">
+                        <div class="profile-photo">
+                            <!-- CHANGE THIS LINE: Replace with your actual photo -->
+                            <img src="zdjecie.jpg" alt="Paweł Szpakiewicz" id="profileImage" />
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <span>🎯</span> Kluczowe Kompetencje
+                        </h3>
+                        
+                        <div class="skill-item clickable" onclick="showSkillDetails('pm')">
+                            <strong>Zarządzanie Projektami</strong>
+                            <div>Scrum, Waterfall, Zespoły 4-15 osób</div>
+                        </div>
+                        
+                        <div class="skill-item clickable" onclick="showSkillDetails('ai')">
+                            <strong>AI & Automatyzacja</strong>
+                            <div>No-code, LLM, Workflow automation</div>
+                        </div>
+                        
+                        <div class="skill-item clickable" onclick="showSkillDetails('cx')">
+                            <strong>Customer Experience</strong>
+                            <div>Service Design, Badania UX</div>
+                        </div>
+                        
+                        <div class="skill-item clickable" onclick="showSkillDetails('business')">
+                            <strong>Analiza Biznesowa</strong>
+                            <div>Modele biznesowe, Strategie</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <span>🤖</span> Narzędzia AI
+                        </h3>
+                        <div class="ai-tools">
+                            <div class="ai-tool tooltip" onclick="showAITools()">
+                                <strong>Claude</strong>
+                                <div class="tooltiptext">Zaawansowana analiza biznesowa</div>
+                            </div>
+                            <div class="ai-tool tooltip" onclick="showAITools()">
+                                <strong>N8N</strong>
+                                <div class="tooltiptext">Automatyzacja workflow (w trakcie nauki)</div>
+                            </div>
+                            <div class="ai-tool tooltip" onclick="showAITools()">
+                                <strong>Notebook LM</strong>
+                                <div class="tooltiptext">Analiza dokumentów i insights</div>
+                            </div>
+                            <div class="ai-tool tooltip" onclick="showAITools()">
+                                <strong>Wispr Flow</strong>
+                                <div class="tooltiptext">Optymalizacja komunikacji</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <span>🎓</span> Wykształcenie
+                        </h3>
+                        <div class="skill-item clickable" onclick="showEducationDetails('wsb')">
+                            <strong>Wyższa Szkoła Bankowa</strong>
+                            <div>Trendy & Design w Marketingu (2019-2021)</div>
+                        </div>
+                        <div class="skill-item clickable" onclick="showEducationDetails('ue')">
+                            <strong>Uniwersytet Ekonomiczny we Wrocławiu</strong>
+                            <div>Zarządzanie Projektami (2015-2019)</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <span>💬</span> Feedback 360°
+                        </h3>
+                        <div class="feedback-snippet" onclick="showFeedback()">
+                            "Paweł jest zorientowany na cele i świetnie łączy kropki..."
+                        </div>
+                        <div class="feedback-snippet" onclick="showFeedback()">
+                            "Planowanie to silna strona Pawła. Wszystko jest jasne i klarowne..."
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="content">
+                    <div class="summary">
+                        <h3>Podsumowanie Zawodowe</h3>
+                        <p>Project Manager z <strong>7-letnim doświadczeniem</strong> w prowadzeniu projektów doradczych dla międzynarodowych marek. Specjalizuję się w optymalizacji procesów biznesowych poprzez efektywne łączenie potencjału AI z ludzką ekspertyzą (<span class="highlight">Collaborative AI</span>). Wykorzystując narzędzia no-code, przekształcam wyzwania biznesowe w konkretne rozwiązania.</p>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <span>💼</span> Doświadczenie Zawodowe
+                        </h3>
+
+                        <div class="experience-item expandable" onclick="toggleExpand(this)">
+                            <div class="expandable-header">
+                                <div>
+                                    <div class="company">Innovatika sp. z o.o.</div>
+                                    <div class="position">Project Manager / Innovation Consultant</div>
+                                    <div class="period">Styczeń 2023 - obecnie</div>
+                                </div>
+                            </div>
+                            <div class="expandable-content">
+                                <div class="achievements">
+                                    <div class="achievement">🏆 Przeprowadzenie kompleksowego badania CX aplikacji bankowych na 3 rynkach CEE</div>
+                                    <div class="achievement">🔬 Realizacja projektów badawczych dla klientów z branży finansowej</div>
+                                    <div class="achievement">💡 Tworzenie value proposition dla obecnych i kreowanie nowych usług oraz produktów</div>
+                                    <div class="achievement">🛠️ Stworzenie pierwszego w firmie Client Success Toolkit</div>
+                                    <div class="achievement">📋 Opracowanie PM Master File usprawniającego dokumentację</div>
+                                    <div class="achievement">🤖 Wdrożenie AI notetakera (Fireflies) i Wispr Flow do poprawy komunikacji</div>
+                                    <div class="achievement">🎯 Nagroda "Always Stay Human" 2 lata z rzędu</div>
+                                </div>
+                                <p><strong>Odpowiedzialność:</strong> Zarządzanie zespołami 4-15 osób, prowadzenie projektów strategicznych, facylitacja warsztatów, tworzenie modeli biznesowych</p>
+                            </div>
+                        </div>
+
+                        <div class="experience-item expandable" onclick="toggleExpand(this)">
+                            <div class="expandable-header">
+                                <div>
+                                    <div class="company">Harbingers sp. z o.o.</div>
+                                    <div class="position">New Business Developer</div>
+                                    <div class="period">Listopad 2022 - Styczeń 2023</div>
+                                </div>
+                            </div>
+                            <div class="expandable-content">
+                                <div class="achievements">
+                                    <div class="achievement">⚡ Rekordowo szybkie pozyskanie pierwszego klienta w historii firmy</div>
+                                    <div class="achievement">📈 3 nowe kontrakty w okresie próbnym (przy wymaganym 1)</div>
+                                    <div class="achievement">🥇 Najwyższa skuteczność w pozyskiwaniu klientów</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="experience-item expandable" onclick="toggleExpand(this)">
+                            <div class="expandable-header">
+                                <div>
+                                    <div class="company">Neon Shake sp. z o.o.</div>
+                                    <div class="position">Project & Account Manager</div>
+                                    <div class="period">Wrzesień 2018 - Październik 2022</div>
+                                </div>
+                            </div>
+                            <div class="expandable-content">
+                                <div class="achievements">
+                                    <div class="achievement">🎮 Kompleksowa kampania mediowa dla Ubisoft (Watch Dogs Legion) z elementami hiper-personalizacji</div>
+                                    <div class="achievement">🔬 Pionierski projekt badawczy z Meta i Ten Square Games</div>
+                                    <div class="achievement">🏃‍♂️ Program motywacyjny oparty na grywalizacji dla Decathlon</div>
+                                    <div class="achievement">🌍 Kampanie dla międzynarodowych marek: Asus, Link4, Selena, Remington</div>
+                                </div>
+                                <p><strong>Klienci:</strong> Branża gamingowa, sportowa, finansowa (banki i ubezpieczyciele)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3 class="section-title">
+                            <span>🚀</span> Projekty i Osiągnięcia
+                        </h3>
+                        <div class="experience-item clickable" onclick="showProjectDetails()">
+                            <strong>AI Transformation Projects</strong>
+                            <p>Wdrożenia rozwiązań AI w procesach biznesowych, automatyzacja workflow, optymalizacja komunikacji zespołowej</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="skillModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('skillModal')">&times;</span>
+            <div id="skillModalContent"></div>
+        </div>
+    </div>
+
+    <div id="aiToolsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('aiToolsModal')">&times;</span>
+            <h2>🤖 Narzędzia AI i No-Code</h2>
+            <div style="margin-top: 20px;">
+                <h3>Asystenci AI i LLM</h3>
+                <p><strong>Claude:</strong> Zaawansowany asystent do analizy biznesowej, tworzenia dokumentacji i optymalizacji procesów</p>
+                <p><strong>OpenAI (ChatGPT, GPT-4):</strong> Zestaw narzędzi do różnorodnych zadań biznesowych i automatyzacji</p>
+                <p><strong>Perplexity:</strong> Zaawansowane wyszukiwanie i analiza informacji wspierana przez AI</p>
+                
+                <h3>Automatyzacja Workflow</h3>
+                <p><strong>N8N:</strong> Uczę się tworzenia automatyzacji i integracji między narzędziami</p>
+                
+                <h3>Analiza i Zarządzanie Wiedzą</h3>
+                <p><strong>Notebook LM:</strong> Analiza dokumentów i generowanie insights z dużych zbiorów danych</p>
+                <p><strong>Wispr Flow:</strong> Optymalizacja procesów komunikacyjnych i workflow</p>
+                
+                <h3>Generowanie Contentu</h3>
+                <p><strong>MidJourney, Flux:</strong> Generowanie grafik i wizualizacji</p>
+                <p><strong>Kling:</strong> Tworzenie animacji i video z tekstu</p>
+                <p><strong>ElevenLabs:</strong> Generowanie realistycznego głosu</p>
+                
+                <h3>Zarządzanie Projektami</h3>
+                <p><strong>Fireflies:</strong> Transkrypcja i analiza spotkań</p>
+                <p><strong>ClickUp:</strong> Kompleksowa platforma do zarządzania projektami</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('feedbackModal')">&times;</span>
+            <h2>💬 Feedback 360° - Kluczowe Opinie</h2>
+            <div style="margin-top: 20px;">
+                <div class="feedback-snippet">
+                    <strong>Zorientowanie na cele:</strong><br>
+                    "Paweł jest zorientowany na cele. Cieszy mnie, że nawet w projektach z początku zorientowanych na innowacje potrafi dostrzec szansę na korzyści i rozwija działania wykraczające poza początkowy scope."
+                </div>
+                
+                <div class="feedback-snippet">
+                    <strong>Planowanie działań:</strong><br>
+                    "Jestem zawsze pod wrażeniem tego jak elegancko Paweł planuje działania. Wszystko jest jasne i klarowne, dobrze zakomunikowane, zespół wie co ma robić."
+                </div>
+                
+                <div class="feedback-snippet">
+                    <strong>Komunikatywność:</strong><br>
+                    "Paweł jest świetnym rozmówcą. Rozmawiając z nim ma się poczucie, że jest się wysłuchanym, odnosi się do wątków, zwraca uwagę na niuanse."
+                </div>
+                
+                <div class="feedback-snippet">
+                    <strong>Kultura osobista:</strong><br>
+                    "Od Pawła bije profesjonalizm i kultura osobista - czuję to na każdym spotkaniu. To jego bardzo mocna strona."
+                </div>
+                
+                <div class="feedback-snippet">
+                    <strong>Praca w zespole:</strong><br>
+                    "Bardzo sobie cenię współpracę z Pawłem, mam poczucie że gramy do jednej bramki. Projekty zarządzane przez niego cechuje empatia."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('projectModal')">&times;</span>
+            <h2>🚀 Kluczowe Projekty i Wyzwania</h2>
+            <div style="margin-top: 20px;">
+                <h3>Sukcesy:</h3>
+                <p><strong>Watch Dogs (Ubisoft):</strong> Kompleksowa kampania mediowa z elementami hiper-personalizacji i zarządzaniem dużym zespołem projektowym z udziałem podwykonawców</p>
+                <p><strong>Ten Square Games:</strong> Szybkie dopięcie projektu i realizacja video odpowiadającego klimatowi midwest america</p>
+                <p><strong>Asus:</strong> Realizacja trudnego mechanizmu zaproponowanego przez klienta, osiągnięcie założonych KPI</p>
+                <p><strong>Klient finansowy:</strong> Praca z bardzo technicznymi produktami z nieznanej wcześniej branży</p>
+                
+                <h3>Przezwyciężone Wyzwania:</h3>
+                <p><strong>Watch Dogs - problem z kampanią mediową:</strong> Po błędzie podwykonawcy, przez rozmowy z klientem i dodatkowe działania finalnie osiągnęliśmy założone KPI</p>
+                <p><strong>Trudny klient:</strong> Zbudowałem mocniejszą więź z kluczową osobą, tworząc "ambasadora" i wprowadzając jasne zasady spotkań</p>
+                <p><strong>Przejęcie złożonego projektu:</strong> Rozpocząłem od retro z zespołem i klientem, ustaliliśmy plan działań, co zaowocowało kontynuacją współpracy</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="educationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('educationModal')">&times;</span>
+            <div id="educationModalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExpand(element) {
+            element.classList.toggle('active');
+        }
+
+        function showEducationDetails(school) {
+            const modal = document.getElementById('educationModal');
+            const content = document.getElementById('educationModalContent');
+            
+            const schools = {
+                ue: {
+                    title: "🎓 Uniwersytet Ekonomiczny we Wrocławiu",
+                    content: `
+                        <h3>Kierunek: Zarządzanie Projektami</h3>
+                        <p><strong>Okres studiów:</strong> 2015-2019</p>
+                        <p><strong>Stopień:</strong> Licencjat</p>
+                        
+                        <h3>Praca Licencjacka</h3>
+                        <p><strong>Temat:</strong> "Analiza systemu motywowania w Niezależnym Zrzeszeniu Studentów Uniwersytetu Ekonomicznego we Wrocławiu"</p>
+                        
+                        <h3>Kluczowe Kompetencje Zdobyte</h3>
+                        <p>• Metodyki zarządzania projektami (tradycyjne i zwinne)</p>
+                        <p>• Analiza systemów motywacyjnych i HR</p>
+                        <p>• Zarządzanie zespołami i organizacjami</p>
+                        <p>• Badania jakościowe i kwantytatywne</p>
+                        <p>• Analiza procesów biznesowych</p>
+                        
+                        <h3>Działalność Studencka</h3>
+                        <p>• Członek Zarządu NZS ds. Kontaktów Zewnętrznych (2017-2019)</p>
+                        <p>• Lider projektu w AIESEC (2015-2016)</p>
+                        <p>• Organizacja szkoleń i warsztatów</p>
+                    `
+                },
+                wsb: {
+                    title: "🎓 Wyższa Szkoła Bankowa we Wrocławiu",
+                    content: `
+                        <h3>Kierunek: Trendy & Design w Marketingu</h3>
+                        <p><strong>Okres studiów:</strong> 2019-2021</p>
+                        <p><strong>Stopień:</strong> Magister</p>
+                        
+                        <h3>Praca Magisterska</h3>
+                        <p><strong>Temat:</strong> "Analiza działań reklamowych Netflixa i ich wpływu na odbiorców"</p>
+                        
+                        <h3>Kluczowe Kompetencje Zdobyte</h3>
+                        <p>• Digital marketing i nowe trendy reklamowe</p>
+                        <p>• Analiza consumer behavior</p>
+                        <p>• Design thinking i user experience</p>
+                        <p>• Badania wpływu mediów na odbiorców</p>
+                        <p>• Marketing platforms i streaming services</p>
+                        
+                        <h3>Połączenie z Praktyką</h3>
+                        <p>Studia realizowane równolegle z pracą w Neon Shake, co pozwoliło na praktyczne zastosowanie wiedzy teoretycznej w realnych projektach reklamowych dla międzynarodowych klientów.</p>
+                    `
+                }
+            };
+            
+            content.innerHTML = schools[school].content;
+            modal.style.display = 'flex';
+        }
+
+        function showSkillDetails(skill) {
+            const modal = document.getElementById('skillModal');
+            const content = document.getElementById('skillModalContent');
+            
+            const skills = {
+                pm: {
+                    title: "🎯 Zarządzanie Projektami",
+                    content: `
+                        <h3>Metodyki i Narzędzia</h3>
+                        <p><strong>Scrum i Agile:</strong> 7 lat doświadczenia w prowadzeniu projektów w metodykach zwinnych</p>
+                        <p><strong>Waterfall:</strong> Tradycyjne zarządzanie projektami dla większych inicjatyw korporacyjnych</p>
+                        <p><strong>Zespoły:</strong> Doświadczenie w zarządzaniu zespołami od 4 do 15 osób</p>
+                        
+                        <h3>Obszary Specjalizacji</h3>
+                        <p>• Projekty doradcze i transformacyjne</p>
+                        <p>• Kampanie reklamowe dla międzynarodowych marek</p>
+                        <p>• Wdrożenia technologiczne (AI, no-code)</p>
+                        <p>• Badania Customer Experience</p>
+                        
+                        <h3>Kluczowe Osiągnięcia</h3>
+                        <p>• Kompleksowe badanie CX aplikacji bankowych na 3 rynkach CEE</p>
+                        <p>• Projekty badawcze dla klientów z branży finansowej</p>
+                        <p>• Kompleksowa kampania mediowa dla Ubisoft (Watch Dogs Legion) z dużym zespołem</p>
+                        <p>• Pionierski projekt badawczy z Meta i Ten Square Games nad formatami reklamowymi</p>
+                        <p>• Tworzenie value proposition dla obecnych i kreowanie nowych usług/produktów</p>
+                        <p>• Program motywacyjny oparty na grywalizacji dla Decathlon - zwiększenie engagement</p>
+                        <p>• Rekordowo szybkie pozyskanie pierwszego klienta w historii firmy (Harbingers)</p>
+                        <p>• Nagroda "Always Stay Human" 2 lata z rzędu za współpracę zespołową</p>
+                    `
+                },
+                ai: {
+                    title: "🤖 AI & Automatyzacja",
+                    content: `
+                        <h3>Filozofia AI Generalist</h3>
+                        <p>Wierzę w koncepcję "AI Generalist" - przyszłość należy do osób potrafiących efektywnie łączyć potencjał AI z ludzką ekspertyzą (Collaborative AI).</p>
+                        
+                        <h3>Narzędzia No-Code</h3>
+                        <p><strong>N8N:</strong> Uczę się automatyzacji workflow i tworzenia integracji</p>
+                        <p><strong>Claude, OpenAI:</strong> Analiza biznesowa, dokumentacja, automatyzacja</p>
+                        <p><strong>Notebook LM:</strong> Analiza dokumentów i generowanie insights</p>
+                        <p><strong>Wispr Flow:</strong> Optymalizacja procesów komunikacyjnych</p>
+                        <p><strong>Fireflies:</strong> Wdrożenie w firmie - od testów po dokumentację</p>
+                        
+                        <h3>Zastosowania Praktyczne</h3>
+                        <p>• Automatyzacja procesów biznesowych</p>
+                        <p>• Optymalizacja workflow projektowego</p>
+                        <p>• Generowanie i analiza contentu</p>
+                        <p>• Usprawnianie komunikacji w projektach</p>
+                        
+                        <h3>Przyszły Projekt</h3>
+                        <p>Planuję stworzenie SaaS z wyspecjalizowanymi agentami AI dla freelancerów i klientów indywidualnych.</p>
+                    `
+                },
+                cx: {
+                    title: "🎨 Customer Experience",
+                    content: `
+                        <h3>Service Design</h3>
+                        <p>Projektowanie doświadczeń klientów w oparciu o customer insights i badania.</p>
+                        
+                        <h3>Kluczowe Projekty</h3>
+                        <p><strong>Badanie CX aplikacji bankowych:</strong> Kompleksowa analiza na 3 rynkach CEE</p>
+                        <p><strong>Programy motywacyjne:</strong> Grywalizacja dla Decathlon</p>
+                        <p><strong>Kampanie hiper-personalizowane:</strong> Watch Dogs Legion dla Ubisoft</p>
+                        
+                        <h3>Metodyki</h3>
+                        <p>• Customer Journey Mapping</p>
+                        <p>• User Research i wywiady</p>
+                        <p>• Prototypowanie rozwiązań</p>
+                        <p>• A/B testing i optymalizacja</p>
+                        
+                        <h3>Branże</h3>
+                        <p>Gaming, finanse (banki, ubezpieczenia), retail, sport</p>
+                    `
+                },
+                business: {
+                    title: "💼 Analiza Biznesowa",
+                    content: `
+                        <h3>Modele Biznesowe</h3>
+                        <p>Tworzenie i optymalizacja modeli biznesowych w oparciu o analizę rynku i potrzeb klientów.</p>
+                        
+                        <h3>Strategie Biznesowe</h3>
+                        <p><strong>Współtworzenie strategii firmy:</strong> Innovatika - plan realizacji strategii</p>
+                        <p><strong>New Business Development:</strong> Harbingers - skuteczne pozyskiwanie klientów</p>
+                        
+                        <h3>Narzędzia Warsztatowe</h3>
+                        <p>• Business Model Canvas</p>
+                        <p>• Value Proposition Canvas</p>
+                        <p>• Customer Journey Mapping</p>
+                        <p>• Design Thinking workshops</p>
+                        <p>• Service Blueprint</p>
+                        <p>• Impact & Effort Matrix</p>
+                        
+                        <h3>Doświadczenie Sektorowe</h3>
+                        <p>Agencje innowacji, marketing, fintech, gaming, e-commerce</p>
+                    `
+                }
+            };
+            
+            content.innerHTML = skills[skill].content;
+            modal.style.display = 'flex';
+        }
+
+        function showAITools() {
+            document.getElementById('aiToolsModal').style.display = 'flex';
+        }
+
+        function showFeedback() {
+            document.getElementById('feedbackModal').style.display = 'flex';
+        }
+
+        function showProjectDetails() {
+            document.getElementById('projectModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Add smooth scrolling for page navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some interactive animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all experience items
+            document.querySelectorAll('.experience-item').forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
